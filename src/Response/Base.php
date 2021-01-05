@@ -67,4 +67,17 @@ abstract class Base
 
         return $this->attributes[$key];
     }
+
+    public function __call($method, $parameters)
+    {
+        if (preg_match('/^get(.+)$/', $method)) {
+            $name = $this->extractParamNameFromGetter($method);
+            return $this->{$name};
+        }
+    }
+
+    protected function extractParamNameFromGetter($method)
+    {
+        return lcfirst(substr($method, 3));
+    }
 }

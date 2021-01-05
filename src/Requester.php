@@ -179,10 +179,17 @@ class Requester extends Base
      */
     public function matchAccount(AccountMatch $request)
     {
-        return $this->sendRequest(
+        $values = $this->sendRequest(
     'matcher.matchAccount',
             $request->buildRpcValues()
         );
+
+        $data = [];
+        foreach ($values as $key => $value) {
+            $data[] = new AccountMatchResult($value);
+        }
+
+        return $data;
     }
 
 
