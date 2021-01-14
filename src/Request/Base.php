@@ -49,11 +49,11 @@ abstract class Base
                 return new PhpXmlRpcValue($data, PhpXmlRpcValue::$xmlrpcArray);
             case 'struct':
                 $data = [];
-                foreach ($value as $v) {
+                foreach ($value as $key => $v) {
                     if(is_string($v) && strlen($v) > 512) {
-                        $data[] = $this->buildRpcValue($v, PhpXmlRpcValue::$xmlrpcBase64);
+                        $data[$key] = $this->buildRpcValue($v, PhpXmlRpcValue::$xmlrpcBase64);
                     } else {
-                        $data[] = $this->buildRpcValue($v);
+                        $data[$key] = $this->buildRpcValue($v);
                     }
                 }
                 return new PhpXmlRpcValue($data, PhpXmlRpcValue::$xmlrpcStruct);
